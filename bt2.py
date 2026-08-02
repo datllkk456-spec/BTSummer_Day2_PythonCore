@@ -1,14 +1,36 @@
-orders = [15000000, 5000000, 22000000, 800000, 12000000]
+students = [
+    {"id": "SV01", "name": " Nguyen Van An ", "email": " an.nguyen@rikkei.edu.vn ", "phone": " 0987654321 "},
+    {"id": "SV02", "name": " Tran Thi Bich ", "email": " bich_gmail.com ", "phone": " 0912345678 "},
+    {"id": "SV03", "name": " Le Hoang Cuong ", "email": " cuong@gmail.com ", "phone": " 09876abcde "},
+    {"id": "SV04", "name": " Pham Minh Dung ", "email": " dung@gmail.com ", "phone": " 0355667788 "}
+]
 
-# Khởi tạo tổng doanh thu và số đơn VIP
-total_revenue = 0
-vip_count = 0
+# Duyệt từng sinh viên
+for student in students:
+    # Làm sạch dữ liệu
+    student["name"] = student["name"].strip()
+    student["email"] = student["email"].strip()
+    student["phone"] = student["phone"].strip()
 
-# Tính tổng doanh thu và đếm đơn VIP
-for price in orders:
-    total_revenue += price
-    if price > 10000000:
-        vip_count += 1
+    # Kiểm tra email
+    email = student["email"]
+    valid_email = (
+        email.count("@") == 1
+        and (email.endswith(".com") or email.endswith(".edu.vn"))
+    )
 
-print(f"Tổng doanh thu: {total_revenue:,} VNĐ")
-print(f"Số đơn VIP: {vip_count} đơn")
+    # Kiểm tra số điện thoại
+    phone = student["phone"]
+    valid_phone = (
+        len(phone) == 10
+        and phone.startswith("0")
+        and phone.isdigit()
+    )
+
+    # In kết quả
+    if valid_email and valid_phone:
+        print(f"[{student['id']}] {student['name']} | Email: {email} | SDT: {phone} -> HO SO HOP LE")
+    elif not valid_email:
+        print(f"[{student['id']}] {student['name']} | Email: {email} | SDT: {phone} -> KHONG HOP LE (Thieu @)")
+    else:
+        print(f"[{student['id']}] {student['name']} | Email: {email} | SDT: {phone} -> KHONG HOP LE (SDT chua chu)")
